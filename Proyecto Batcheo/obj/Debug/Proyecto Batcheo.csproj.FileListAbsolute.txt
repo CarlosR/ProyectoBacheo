@@ -1,0 +1,6 @@
+c:\users\rosales\documents\visual studio 2012\Projects\Proyecto Batcheo\Proyecto Batcheo\bin\Debug\Proyecto Batcheo.exe.config
+c:\users\rosales\documents\visual studio 2012\Projects\Proyecto Batcheo\Proyecto Batcheo\bin\Debug\Proyecto Batcheo.exe
+c:\users\rosales\documents\visual studio 2012\Projects\Proyecto Batcheo\Proyecto Batcheo\bin\Debug\Proyecto Batcheo.pdb
+c:\users\rosales\documents\visual studio 2012\Projects\Proyecto Batcheo\Proyecto Batcheo\obj\Debug\Proyecto Batcheo.csprojResolveAssemblyReference.cache
+c:\users\rosales\documents\visual studio 2012\Projects\Proyecto Batcheo\Proyecto Batcheo\obj\Debug\Proyecto Batcheo.exe
+c:\users\rosales\documents\visual studio 2012\Projects\Proyecto Batcheo\Proyecto Batcheo\obj\Debug\Proyecto Batcheo.pdb
