@@ -32,7 +32,8 @@ namespace Proyecto_Batcheo
                 Console.WriteLine("6. Batcheo");
                 Console.WriteLine("7. Cargar archivo de datos");
                 Console.WriteLine("8. Exportar a archivo");
-                Console.WriteLine("9. Salir");
+                Console.WriteLine("9. Limpiar Pantalla");
+                Console.WriteLine("10. Salir");
 
                 Console.WriteLine("\nIngrese la opcion que desee realizar:");
                 opcion = Convert.ToInt32(Console.ReadLine());
@@ -63,10 +64,14 @@ namespace Proyecto_Batcheo
                         inventario.ReporteDeBatchPorId();
                         break;
                     case 6:
+                        inventario.Batcheo();
+                        break;
+                    case 9:
+                        Console.Clear();
                         break;
                 }
 
-            } while (opcion != 9);
+            } while (opcion != 10);
         }
     }
 }

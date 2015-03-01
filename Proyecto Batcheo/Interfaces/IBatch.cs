@@ -19,5 +19,6 @@ namespace Proyecto_Batcheo.Interfaces
         void CrearBatch();
         void MostrarDatos();
         void MostrarSeriesAsignadas();
+        void ProcesoDeBatcheo(IRolloDeTelaCruda rolloDeTelaCruda);
     }
 }

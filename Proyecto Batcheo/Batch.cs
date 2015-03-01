@@ -53,7 +53,9 @@ namespace Proyecto_Batcheo
         {
             if (RollosAsignados.Count != 0)
             {
+                Console.WriteLine(" ");
                 Console.WriteLine("\nRollos Asignados: ");
+                Console.WriteLine(" ");
 
                 foreach (var rollo in RollosAsignados)
                 {
@@ -67,6 +69,78 @@ namespace Proyecto_Batcheo
             else
             {
                 Console.WriteLine("\nSin rollos asignados.");
+                Console.WriteLine(" ");
+            }
+        }
+
+
+        public void AsignarTelaCrudaCompleta(IRolloDeTelaCruda rolloDeTelaCruda)
+        {
+            rolloDeTelaCruda.CambiarEstado(EstadosDeSerie.ASSIGNED);
+            CantidadActual += rolloDeTelaCruda.Cantidad;
+            RollosAsignados.Add(rolloDeTelaCruda);
+            Console.WriteLine("\nSerie asignada a batch!");
+
+            CambiarEstado();
+
+        }
+
+        public void ProcesoDeBatcheo(IRolloDeTelaCruda rolloDeTelaCruda)
+        {
+            if (rolloDeTelaCruda.Estilo == Estilo && rolloDeTelaCruda.EstadoActual == EstadosDeSerie.NEW)
+            {
+                int cantidadPendiente = CantidadRequerida - CantidadActual;
+                
+                if (rolloDeTelaCruda.Cantidad <= cantidadPendiente)
+                {
+                    AsignarTelaCrudaCompleta(rolloDeTelaCruda);
+
+                }else if (rolloDeTelaCruda.Cantidad > cantidadPendiente)
+                {
+                    AsignarTelaCrudaParcial(rolloDeTelaCruda);
+                }
+                
+            }
+            else if (rolloDeTelaCruda.Estilo != Estilo)
+            {
+                Console.WriteLine("\nEl Estilo es incorrecto!");
+
+            }
+            else if (rolloDeTelaCruda.EstadoActual == EstadosDeSerie.ASSIGNED)
+            {
+                Console.WriteLine("\nEsta serie ya esta asignada!");
+            }
+            
+            
+        }
+
+        private void AsignarTelaCrudaParcial(IRolloDeTelaCruda rolloDeTelaCruda)
+        {
+            rolloDeTelaCruda.CambiarEstado(EstadosDeSerie.ASSIGNED);
+            int cantidadSobrante = rolloDeTelaCruda.Cantidad - (CantidadRequerida - CantidadActual);
+            
+            rolloDeTelaCruda.Cantidad -= cantidadSobrante;
+            RollosAsignados.Add(rolloDeTelaCruda);
+
+            CantidadActual = CantidadRequerida;
+            CambiarEstado();
+            Console.WriteLine("\nSerie asignada a batch!");
+
+            InventarioGeneral.CrearRolloParcial(cantidadSobrante,rolloDeTelaCruda.Estilo);
+
+
+        }
+
+        public void CambiarEstado()
+        {
+            if (CantidadActual == CantidadRequerida)
+            {
+                Estado = EstadosDeBatch.READY;
+
+            }
+            else if (CantidadActual < CantidadRequerida && Estado == EstadosDeBatch.NEW)
+            {
+                Estado = EstadosDeBatch.PENDING;
             }
         }
     }

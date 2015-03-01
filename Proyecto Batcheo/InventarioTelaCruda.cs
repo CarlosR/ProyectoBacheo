@@ -42,7 +42,7 @@ namespace Proyecto_Batcheo
             {
                 Console.WriteLine("\nInventario Vacio!");
             }
-
+            Console.ReadKey();
             
         }    
 
