@@ -16,6 +16,16 @@ namespace Proyecto_Batcheo
             InventarioDeRollos = new List<IRolloDeTelaCruda>();
         }
 
+        public static List<IRolloDeTelaCruda> GetInventarioDeRollos()
+        {
+            return InventarioDeRollos;
+        }
+
+        public static void SetInventarioDeRollos(List<IRolloDeTelaCruda> lista)
+        {
+            InventarioDeRollos = lista;
+        } 
+
         public virtual void AgregarRollo(IRolloDeTelaCruda rollo)
         {
             InventarioDeRollos.Add(rollo);

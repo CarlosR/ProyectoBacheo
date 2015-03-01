@@ -15,6 +15,16 @@ namespace Proyecto_Batcheo
             InventarioDeBatches = new List<IBatch>();
         }
 
+        public static List<IBatch> GetInventarioDeBatches()
+        {
+            return InventarioDeBatches;
+        }
+
+        public static void SetInventarioDeBatches(List<IBatch> lista)
+        {
+            InventarioDeBatches = lista;
+        } 
+
         public override void AgregarRollo(IRolloDeTelaCruda rollo)
         {
             base.AgregarRollo(rollo);

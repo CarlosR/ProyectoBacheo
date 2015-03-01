@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Proyecto_Batcheo.Estados;
+using Proyecto_Batcheo.Herramientas;
 
 namespace Proyecto_Batcheo
 {
@@ -37,13 +38,22 @@ namespace Proyecto_Batcheo
 
                 Console.WriteLine("\nIngrese la opcion que desee realizar:");
                 opcion = Convert.ToInt32(Console.ReadLine());
+                string seguir = "";
 
                 switch (opcion)
                 {
                     case 1:
                         var rollo = new RolloDeTelaCruda();
-                        rollo.CrearRollo();
-                        inventario.AgregarRollo(rollo);
+                        
+                        do
+                        {
+                            rollo.CrearRollo();
+                            inventario.AgregarRollo(rollo);
+                            Console.WriteLine("\nDesea ingresar otro? S | s");
+                            seguir = Console.ReadLine();
+
+                        } while (seguir=="s" || seguir=="S");
+                        
                         
                         break;
                 
@@ -53,8 +63,16 @@ namespace Proyecto_Batcheo
 
                     case 3:
                         var batch = new Batch();
-                        batch.CrearBatch();
-                        inventario.AgregarBatch(batch);
+                        
+                        do
+                        {
+                            batch.CrearBatch();
+                            inventario.AgregarBatch(batch);
+                            Console.WriteLine("\nDesea ingresar otro? S | s");
+                            seguir = Console.ReadLine();
+
+                        } while (seguir == "s" || seguir == "S");
+                        
                         break;
 
                     case 4:
@@ -65,6 +83,14 @@ namespace Proyecto_Batcheo
                         break;
                     case 6:
                         inventario.Batcheo();
+                        break;
+                    case 7:
+                        var imp = new ImportTool();
+                        imp.ImportarArchivo();
+                        break;
+                    case 8:
+                        var exp = new ExportTool();
+                        exp.ExportarArchivo();
                         break;
                     case 9:
                         Console.Clear();
