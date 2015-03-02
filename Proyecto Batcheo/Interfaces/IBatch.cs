@@ -16,9 +16,10 @@ namespace Proyecto_Batcheo.Interfaces
         EstadosDeBatch Estado { get; set; }
         List<IRolloDeTelaCruda> RollosAsignados { get; set; }
 
-        void CrearBatch();
+        bool CrearBatch();
         void MostrarDatos();
         void MostrarSeriesAsignadas();
         void ProcesoDeBatcheo(IRolloDeTelaCruda rolloDeTelaCruda);
+        int[] ValidarEstilo(string estilo);
     }
 }

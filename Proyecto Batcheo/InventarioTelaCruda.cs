@@ -10,6 +10,7 @@ namespace Proyecto_Batcheo
     public class InventarioTelaCruda
     {
         protected static List<IRolloDeTelaCruda> InventarioDeRollos { get; set; }
+        protected static long LastSerie { get; set; }
 
         public InventarioTelaCruda()
         {

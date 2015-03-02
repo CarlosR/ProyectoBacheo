@@ -9,6 +9,7 @@ namespace Proyecto_Batcheo
     public class InventarioGeneral:InventarioTelaCruda
     {
         protected static List<IBatch> InventarioDeBatches { get; set; }
+        static long LastId { get; set; }
 
         public InventarioGeneral()
         {
@@ -144,8 +145,8 @@ namespace Proyecto_Batcheo
 
         public static void CrearRolloParcial(int cantidad, string estilo)
         {
-            Console.WriteLine("\nIngrese un nuevo codigo de serie para la cantidad sobrante: ");
-            long serie = Convert.ToInt64(Console.ReadKey());
+            long serie = GetLastSerie()+1;
+            SetLastSerie(serie);
 
             InventarioDeRollos.Add(new RolloDeTelaCruda()
             {
@@ -154,6 +155,27 @@ namespace Proyecto_Batcheo
                 Estilo = estilo,
                 Serie = serie
             });
+        }
+
+        public static long GetLastId()
+        {
+            return LastId;
+        }
+
+        public static void SetLastId(long id)
+        {
+            LastId = id;
+        }
+
+
+        public static long GetLastSerie()
+        {
+            return LastSerie;
+        }
+
+        public static void SetLastSerie(long serie)
+        {
+            LastSerie = serie;
         }
 
 

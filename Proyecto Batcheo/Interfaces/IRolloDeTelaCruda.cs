@@ -15,10 +15,11 @@ namespace Proyecto_Batcheo.Interfaces
         int Cantidad { get; set; }
         EstadosDeSerie EstadoActual { get; set; }
 
-        void CrearRollo();
+        bool CrearRollo();
         void MostrarDatos();
         void ModificarSerie();
         void CambiarEstado(EstadosDeSerie estado);
+        int[] ValidarEstilo(string estilo);
 
     }
 }

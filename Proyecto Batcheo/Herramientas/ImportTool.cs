@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Proyecto_Batcheo.Estados;
 using Proyecto_Batcheo.Interfaces;
 
@@ -49,6 +47,9 @@ namespace Proyecto_Batcheo.Herramientas
             {
                 contA.Add(r.ReadInt32());
             }
+
+            long lastId = r.ReadInt64();
+            long lastSerie = r.ReadInt64();
 
             for (int i = 0; i<contR ; i++)
             {
@@ -107,9 +108,13 @@ namespace Proyecto_Batcheo.Herramientas
 
             InventarioGeneral.SetInventarioDeBatches(batch);
 
-            Console.WriteLine("\nEl archivo fue cargado exitosamente!");
+            InventarioGeneral.SetLastId(lastId);
+            InventarioGeneral.SetLastSerie(lastSerie);
+
             r.Close();
-            fs.Close();   
+            fs.Close();
+            Console.WriteLine("\nEl archivo fue cargado exitosamente!");
+            Console.ReadKey();
         }
 
         

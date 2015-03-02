@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Proyecto_Batcheo.Estados;
 using Proyecto_Batcheo.Interfaces;
 
@@ -17,14 +15,28 @@ namespace Proyecto_Batcheo
         public EstadosDeBatch Estado { get; set; }
         public List<IRolloDeTelaCruda> RollosAsignados { get; set; }
         
-        public void CrearBatch()
+        public bool CrearBatch()
         {
             Console.WriteLine("\nIntroduzca los datos correspondientes.");
 
             Console.WriteLine("\nId: ");
-            Id = Convert.ToInt64(Console.ReadLine());
-            Console.WriteLine("\nEstilo: ");
-            Estilo = Console.ReadLine();
+            Id = InventarioGeneral.GetLastId() + 1;
+            InventarioGeneral.SetLastId(Id);
+            Console.WriteLine(Id);
+
+            Console.WriteLine("\nNumero de Estilo y Cilindro: (Ej. 2231,10)");
+            string estilo = Console.ReadLine();
+            int[] estiloInts = ValidarEstilo(estilo);
+            if (estiloInts != null)
+            {
+                Estilo = string.Format("GC.{0}..{1}", estiloInts[0], estiloInts[1]);
+            }
+            else
+            {
+                InventarioGeneral.SetLastId(Id-1);
+                return false;
+            }
+
             Console.WriteLine("\nCantidad Requerida: ");
             CantidadRequerida = Convert.ToInt32(Console.ReadLine());
             
@@ -33,6 +45,7 @@ namespace Proyecto_Batcheo
             Estado = EstadosDeBatch.NEW;
 
             RollosAsignados = new List<IRolloDeTelaCruda>();
+            return true;
         }
 
         public void MostrarDatos()
@@ -40,7 +53,7 @@ namespace Proyecto_Batcheo
             Console.Write("\nId: ");
             Console.WriteLine(Id);
             Console.Write("\nEstilo: ");
-            Console.WriteLine(Estilo);
+            Console.Write(Estilo);
             Console.Write("\nCantidad Requerida: ");
             Console.WriteLine(CantidadRequerida + " lbs");
             Console.Write("\nCantidad Actual: ");
@@ -142,6 +155,25 @@ namespace Proyecto_Batcheo
             {
                 Estado = EstadosDeBatch.PENDING;
             }
+        }
+
+        public int[] ValidarEstilo(string estilo)
+        {
+            string[] numeroDeEstilo = estilo.Split(',');
+
+
+            if (numeroDeEstilo.Count() == 2)
+            {
+                int r1, r2;
+
+                if (Int32.TryParse(numeroDeEstilo.ElementAt(0), out r1) && Int32.TryParse(numeroDeEstilo.ElementAt(1), out r2))
+                {
+                    return new[] { r1, r2 };
+                }
+            }
+
+            return null;
+
         }
     }
 }

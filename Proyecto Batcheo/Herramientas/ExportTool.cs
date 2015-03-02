@@ -39,6 +39,8 @@ namespace Proyecto_Batcheo.Herramientas
             int contR = InventarioGeneral.GetInventarioDeRollos().Count;
             int contB = InventarioGeneral.GetInventarioDeBatches().Count;
             var contA = InventarioGeneral.GetInventarioDeBatches().Select(inv => inv.RollosAsignados.Count).ToList();
+            long lastId = InventarioGeneral.GetLastId();
+            long lastSerie = InventarioGeneral.GetLastSerie();
 
             w.Write(contR);
             w.Write(contB);
@@ -46,6 +48,8 @@ namespace Proyecto_Batcheo.Herramientas
             {
                 w.Write(i);
             }
+            w.Write(lastId);
+            w.Write(lastSerie);
 
             foreach (var inv in InventarioTelaCruda.GetInventarioDeRollos())
             {

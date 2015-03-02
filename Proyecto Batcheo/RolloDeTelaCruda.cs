@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using Proyecto_Batcheo.Estados;
 using Proyecto_Batcheo.Interfaces;
 
@@ -11,18 +13,33 @@ namespace Proyecto_Batcheo
         public int Cantidad { get; set; }
         public EstadosDeSerie EstadoActual { get; set; }
         
-        public void CrearRollo()
+        public bool CrearRollo()
         {
             Console.WriteLine("\nIntroduzca los datos correspondientes.");
 
             Console.WriteLine("\nSerie: ");
-            Serie = Convert.ToInt64(Console.ReadLine());
-            Console.WriteLine("\nEstilo: ");
-            Estilo = Console.ReadLine();
+            Serie = InventarioGeneral.GetLastSerie() + 1;
+            InventarioGeneral.SetLastSerie(Serie);
+            Console.WriteLine(Serie);
+
+            Console.WriteLine("\nNumero de Estilo y Cilindro: (Ej. 2231,10)");
+            string estilo = Console.ReadLine();
+            int[] estiloInts = ValidarEstilo(estilo);
+            if (estiloInts != null)
+            {
+                Estilo = string.Format("GC.{0}..{1}", estiloInts[0], estiloInts[1]);
+            }
+            else
+            {
+                InventarioGeneral.SetLastSerie(Serie - 1);
+                return false;
+            }
+
             Console.WriteLine("\nCantidad: ");
             Cantidad = Convert.ToInt32(Console.ReadLine());
             
             EstadoActual = EstadosDeSerie.NEW;
+            return true;
         }
 
         public void MostrarDatos()
@@ -46,6 +63,25 @@ namespace Proyecto_Batcheo
         public void CambiarEstado(EstadosDeSerie estado)
         {
             EstadoActual = estado;
+        }
+
+        public int[] ValidarEstilo(string estilo)
+        {
+            string[] numeroDeEstilo = estilo.Split(',');
+
+
+            if (numeroDeEstilo.Count() == 2)
+            {
+                int r1, r2;
+
+                if (Int32.TryParse(numeroDeEstilo.ElementAt(0), out r1) && Int32.TryParse(numeroDeEstilo.ElementAt(1), out r2))
+                {
+                    return new[] { r1, r2 };
+                }
+            }
+
+            return null;
+
         }
     }
 

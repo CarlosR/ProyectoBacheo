@@ -12,6 +12,8 @@ namespace Proyecto_Batcheo
     {
         static void Main(string[] args)
         {
+            InventarioGeneral.SetLastId(1);
+            InventarioGeneral.SetLastSerie(100);
             var inventario = new InventarioGeneral();
             Menu(inventario);
 
@@ -43,11 +45,15 @@ namespace Proyecto_Batcheo
                 switch (opcion)
                 {
                     case 1:
-                        var rollo = new RolloDeTelaCruda();
-                        
+                             
                         do
                         {
-                            rollo.CrearRollo();
+                            var rollo = new RolloDeTelaCruda();
+                            if (!rollo.CrearRollo())
+                            {
+                                Console.WriteLine("Error al momento de ingresar, intentelo nuevamente");
+                                continue;
+                            }
                             inventario.AgregarRollo(rollo);
                             Console.WriteLine("\nDesea ingresar otro? S | s");
                             seguir = Console.ReadLine();
@@ -62,11 +68,15 @@ namespace Proyecto_Batcheo
                         break;
 
                     case 3:
-                        var batch = new Batch();
                         
                         do
                         {
-                            batch.CrearBatch();
+                            var batch = new Batch();
+                            if (!batch.CrearBatch())
+                            {
+                                Console.WriteLine("Error al momento de ingresar, intentelo nuevamente");
+                                continue;
+                            }
                             inventario.AgregarBatch(batch);
                             Console.WriteLine("\nDesea ingresar otro? S | s");
                             seguir = Console.ReadLine();
