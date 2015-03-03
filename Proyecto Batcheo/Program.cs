@@ -1,18 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Proyecto_Batcheo.Estados;
 using Proyecto_Batcheo.Herramientas;
 
 namespace Proyecto_Batcheo
 {
     class Program
     {
-        static void Main(string[] args)
+        static void Main()
         {
-            InventarioGeneral.SetLastId(1);
+            InventarioGeneral.SetLastId(0);
             InventarioGeneral.SetLastSerie(100);
             var inventario = new InventarioGeneral();
             Menu(inventario);
